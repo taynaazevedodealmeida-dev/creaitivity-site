@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Creaitivity — ela não pensa por você, ela pensa com você</title>
-<meta name="description" content="A IA criativa que mostra as 7 etapas do próprio raciocínio, ao vivo, antes de responder. Você usa a sua própria chave de IA.">
+<meta name="description" content="A IA criativa que pensa de verdade — e pensa junto com você. Você assiste ao pensamento acontecer antes da resposta.">
 <style>
   :root{
     --areia:#faf6ef; --papel:#fffdf8; --tinta:#3b3530; --suave:#8a8178;
@@ -15,10 +15,10 @@
   body{font-family:Georgia,'Times New Roman',serif;background:var(--areia);color:var(--tinta);line-height:1.65}
   .sans{font-family:-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif}
   .wrap{max-width:980px;margin:0 auto;padding:0 24px}
-  /* ───── hero ───── */
-  header{padding:96px 0 72px;text-align:center;position:relative;overflow:hidden}
+  header{padding:100px 0 80px;text-align:center;position:relative}
   .sol-bg{position:absolute;inset:0;background:linear-gradient(180deg,#fdf3dd 0%,var(--areia) 55%);pointer-events:none}
-  .selo{display:inline-block;position:relative;border:1px solid var(--linha);background:var(--papel);border-radius:999px;
+  header .wrap{position:relative}
+  .selo{display:inline-block;border:1px solid var(--linha);background:var(--papel);border-radius:999px;
     padding:6px 16px;font-size:13px;color:var(--suave);margin-bottom:28px}
   h1{font-size:clamp(38px,6vw,64px);font-weight:400;letter-spacing:-.5px}
   h1 em{font-style:italic;color:var(--sol-escuro)}
@@ -28,25 +28,22 @@
     transition:transform .15s,box-shadow .15s}
   .btn:hover{transform:translateY(-2px)}
   .btn-sol{background:var(--sol);color:#2c2114;font-weight:600;box-shadow:0 6px 20px rgba(245,183,60,.35)}
-  .btn-ghost{border:1.5px solid var(--linha);background:var(--papel);color:var(--tinta)}
-  /* ───── demo das 7 etapas ───── */
-  .palco{margin:64px auto 0;max-width:640px;background:var(--papel);border:1px solid var(--linha);
+  /* palco: pensamento como presença, sem revelar o método */
+  .palco{margin:64px auto 0;max-width:600px;background:var(--papel);border:1px solid var(--linha);
     border-radius:20px;padding:28px 30px;text-align:left;box-shadow:0 18px 50px rgba(60,45,10,.08)}
-  .palco .pedido{font-size:15px;color:var(--suave);border-bottom:1px dashed var(--linha);padding-bottom:14px;margin-bottom:16px}
+  .palco .pedido{font-size:15px;color:var(--suave);border-bottom:1px dashed var(--linha);padding-bottom:14px;margin-bottom:18px}
   .palco .pedido b{color:var(--tinta)}
-  .etapa{display:flex;gap:12px;align-items:baseline;padding:7px 0;opacity:.18;transition:opacity .5s}
-  .etapa.viva{opacity:1}
-  .etapa .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--sol-claro);color:var(--sol-escuro);
-    display:grid;place-items:center;font-size:13px;font-weight:700;font-family:sans-serif;transform:translateY(4px)}
-  .etapa .rotulo{font-weight:700;font-size:14px;letter-spacing:.4px}
-  .etapa .txt{font-size:14px;color:var(--suave)}
-  .resposta{margin-top:14px;border-top:1px dashed var(--linha);padding-top:14px;font-size:15px;
-    font-style:italic;min-height:48px;color:var(--tinta)}
+  .pensando{display:flex;align-items:center;gap:12px;font-size:14.5px;color:var(--suave);min-height:30px}
+  .pontos{display:inline-flex;gap:5px}
+  .pontos i{width:8px;height:8px;border-radius:50%;background:var(--sol);animation:sobe 1.2s ease-in-out infinite}
+  .pontos i:nth-child(2){animation-delay:.18s}.pontos i:nth-child(3){animation-delay:.36s}
+  @keyframes sobe{0%,100%{transform:translateY(0);opacity:.45}50%{transform:translateY(-6px);opacity:1}}
+  .resposta{margin-top:16px;border-top:1px dashed var(--linha);padding-top:16px;font-size:15px;
+    font-style:italic;min-height:70px;color:var(--tinta)}
   .cursor{display:inline-block;width:8px;height:17px;background:var(--sol);vertical-align:-2px;
     animation:pisca 1s steps(1) infinite}
   @keyframes pisca{50%{opacity:0}}
-  /* ───── seções ───── */
-  section{padding:72px 0}
+  section{padding:76px 0}
   h2{font-size:clamp(26px,4vw,36px);font-weight:400;text-align:center;margin-bottom:14px}
   .lead{text-align:center;color:var(--suave);max-width:600px;margin:0 auto 48px}
   .grade{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
@@ -54,21 +51,8 @@
   .carta h3{font-size:17px;margin-bottom:8px}
   .carta p{font-size:14.5px;color:var(--suave)}
   .carta .ico{font-size:26px;margin-bottom:12px}
-  /* etapas em lista */
-  ol.sete{max-width:640px;margin:0 auto;list-style:none;counter-reset:e}
-  ol.sete li{counter-increment:e;display:flex;gap:18px;padding:16px 0;border-bottom:1px solid var(--linha)}
-  ol.sete li::before{content:counter(e);flex:none;width:34px;height:34px;border-radius:50%;
-    background:var(--sol-claro);color:var(--sol-escuro);display:grid;place-items:center;
-    font-family:sans-serif;font-weight:700}
-  ol.sete b{display:block;font-size:16px}
-  ol.sete span{font-size:14.5px;color:var(--suave)}
-  /* preço */
-  .preco{max-width:420px;margin:0 auto;text-align:center;background:var(--papel);
-    border:2px solid var(--sol);border-radius:24px;padding:40px 32px;box-shadow:0 18px 50px rgba(245,183,60,.18)}
-  .preco .valor{font-size:40px;margin:10px 0}
-  .preco ul{list-style:none;text-align:left;margin:22px 0;font-size:15px}
-  .preco li{padding:7px 0 7px 28px;position:relative}
-  .preco li::before{content:"☀️";position:absolute;left:0;font-size:13px}
+  .breve{max-width:460px;margin:0 auto;text-align:center;background:var(--papel);
+    border:2px solid var(--sol);border-radius:24px;padding:44px 32px;box-shadow:0 18px 50px rgba(245,183,60,.18)}
   footer{padding:48px 0 64px;text-align:center;font-size:13.5px;color:var(--suave);border-top:1px solid var(--linha)}
   footer a{color:var(--sol-escuro)}
 </style>
@@ -78,75 +62,44 @@
 <header>
   <div class="sol-bg"></div>
   <div class="wrap">
-    <span class="selo sans">☀️ motor de pensamento visível</span>
+    <span class="selo sans">☀️ uma IA que pensa de verdade</span>
     <h1>Ela não pensa <em>por</em> você.<br>Ela pensa <em>com</em> você.</h1>
-    <p class="sub">A Creaitivity é a IA criativa que mostra as 7 etapas do próprio
-      raciocínio, ao vivo na tela, antes de entregar a resposta. O processo visível é o produto.</p>
+    <p class="sub">A Creaitivity é a IA criativa que pensa de verdade — e deixa você
+      assistir ao pensamento acontecer, ao vivo, antes da resposta chegar.</p>
     <div class="ctas sans">
-      <a class="btn btn-sol" href="#assinar">Quero pensar com ela</a>
-      <a class="btn btn-ghost" href="#como">Ver como funciona</a>
+      <a class="btn btn-sol" href="#breve">Quero pensar com ela</a>
     </div>
 
-    <div class="palco sans" id="palco">
+    <div class="palco sans">
       <div class="pedido">você: <b>"quero uma imagem de um gato com chapéu de cowboy"</b></div>
-      <div class="etapa" data-e="1"><span class="num">1</span><div><span class="rotulo">DECOMPÕE</span> <span class="txt">— gato · imagem · chapéu · cowboy</span></div></div>
-      <div class="etapa" data-e="2"><span class="num">2</span><div><span class="rotulo">PERGUNTA</span> <span class="txt">— o que é um gato? o que é um cowboy?</span></div></div>
-      <div class="etapa" data-e="3"><span class="num">3</span><div><span class="rotulo">PESQUISA</span> <span class="txt">— buscando na web o significado de cada conceito…</span></div></div>
-      <div class="etapa" data-e="4"><span class="num">4</span><div><span class="rotulo">QUESTIONA</span> <span class="txt">— para que serve? como é? como usar?</span></div></div>
-      <div class="etapa" data-e="5"><span class="num">5</span><div><span class="rotulo">RESPONDE</span> <span class="txt">— respondendo às próprias perguntas com a pesquisa</span></div></div>
-      <div class="etapa" data-e="6"><span class="num">6</span><div><span class="rotulo">MEDITA</span> <span class="txt">— pesando as opções (pensare = pesar)</span></div></div>
-      <div class="etapa" data-e="7"><span class="num">7</span><div><span class="rotulo">ENTREGA</span> <span class="txt">— a resposta criativa, com voz solar</span></div></div>
+      <div class="pensando"><span class="pontos"><i></i><i></i><i></i></span><span id="estado">pensando…</span></div>
       <div class="resposta"><span id="maquina"></span><span class="cursor" id="cursor"></span></div>
     </div>
   </div>
 </header>
 
-<section id="como">
+<section>
   <div class="wrap">
-    <h2>O motor "Penso Logo Existo"</h2>
-    <p class="lead">Quando você pede algo, a Creaitivity não responde direto.
-      Ela executa — e exibe ao vivo — sete etapas de pensamento de verdade:</p>
-    <ol class="sete">
-      <li><div><b>Decompõe</b><span>extrai os substantivos do seu pedido, na lógica do português.</span></div></li>
-      <li><div><b>Pergunta</b><span>para cada conceito, formula "o que é?".</span></div></li>
-      <li><div><b>Pesquisa</b><span>busca na internet, de verdade, o que cada conceito significa.</span></div></li>
-      <li><div><b>Questiona</b><span>para que serve? como é? como se usa?</span></div></li>
-      <li><div><b>Responde</b><span>responde às próprias perguntas com base no que pesquisou.</span></div></li>
-      <li><div><b>Medita</b><span>pondera e pesa as opções — do latim <i>pensare</i>, pesar.</span></div></li>
-      <li><div><b>Entrega</b><span>só então chega a resposta criativa, calorosa, para você.</span></div></li>
-    </ol>
-  </div>
-</section>
-
-<section style="background:var(--papel);border-top:1px solid var(--linha);border-bottom:1px solid var(--linha)">
-  <div class="wrap">
-    <h2>Sua IA, sua chave 🔑</h2>
-    <p class="lead">A Creaitivity é BYOAI — <i>bring your own AI</i>. Você conecta a sua
-      própria chave (OpenAI, Claude, Gemini ou Ollama local) e ela vira o músculo do motor.</p>
+    <h2>Pensar junto é diferente</h2>
+    <p class="lead">Para designers, arquitetos, cadistas e qualquer pessoa que vive de
+      criar: a Creaitivity não entrega respostas prontas — ela constrói a ideia com você.</p>
     <div class="grade sans">
-      <div class="carta"><div class="ico">🔒</div><h3>A chave é sua</h3><p>Fica criptografada no servidor, é usada só nas suas pensadas e você pode apagá-la quando quiser.</p></div>
-      <div class="carta"><div class="ico">🔁</div><h3>Troque quando quiser</h3><p>OpenAI hoje, Claude amanhã, Gemini depois. O motor de pensamento é o mesmo — a alma não muda.</p></div>
-      <div class="carta"><div class="ico">🧠</div><h3>Feita para criativos</h3><p>Designers, arquitetos, cadistas e qualquer pessoa que precisa de soluções criativas — não de respostas prontas.</p></div>
+      <div class="carta"><div class="ico">🌅</div><h3>Pensamento visível</h3><p>Você vê a Creaitivity pensando na tela, em tempo real. Não é mágica instantânea: é um processo — e assistir a ele faz parte da criação.</p></div>
+      <div class="carta"><div class="ico">🤝</div><h3>Parceira, não oráculo</h3><p>Ela questiona, pondera e devolve caminhos criativos. A decisão final continua sendo sua — como deve ser.</p></div>
+      <div class="carta"><div class="ico">🌻</div><h3>Calorosa por natureza</h3><p>Personalidade solar: encorajadora e acolhedora. Criar exige coragem, e ela está do seu lado.</p></div>
     </div>
   </div>
 </section>
 
-<section id="assinar">
+<section id="breve" style="background:var(--papel);border-top:1px solid var(--linha)">
   <div class="wrap">
-    <h2>Assine e pense junto</h2>
-    <p class="lead">A assinatura paga o motor. A inteligência — a sua chave — continua sendo sua.</p>
-    <div class="preco sans">
-      <div style="font-size:30px">🌻</div>
-      <div class="valor">Assinatura mensal</div>
-      <ul>
-        <li>Motor das 7 etapas completo, ao vivo</li>
-        <li>Conversas e memória — ela lembra de você</li>
-        <li>Sua chave: OpenAI, Claude, Gemini ou Ollama</li>
-        <li>Cancele quando quiser</li>
-      </ul>
-      <!-- TODO: troque pelo link real de checkout da Cakto -->
-      <a class="btn btn-sol" href="#" id="checkout">Assinar agora ☀️</a>
-      <p style="margin-top:14px;font-size:12.5px;color:var(--suave)">Pagamento seguro via Cakto.</p>
+    <div class="breve sans">
+      <div style="font-size:34px">🌻</div>
+      <h2 style="margin-top:10px">Em breve</h2>
+      <p style="color:var(--suave);margin-top:8px;font-size:15px">
+        A Creaitivity está florescendo. Quer ser avisada(o) quando ela abrir as portas?
+      </p>
+      <a class="btn btn-sol" style="margin-top:22px" href="mailto:taynaazevedodealmeida@gmail.com?subject=Quero%20pensar%20com%20a%20Creaitivity">Me avise ☀️</a>
     </div>
   </div>
 </section>
@@ -154,31 +107,29 @@
 <footer class="sans">
   <div class="wrap">
     ☀️ Creaitivity — ela não pensa <i>por</i> você, ela pensa <i>com</i> você.<br>
-    Seus dados: e-mail e chave criptografada, nada mais. Exclusão a qualquer momento (LGPD).<br>
     <a href="mailto:taynaazevedodealmeida@gmail.com">contato</a>
   </div>
 </footer>
 
 <script>
-// Animação do palco: acende as etapas e "digita" a resposta. Puro teatro —
-// o motor de verdade vive no servidor.
-const etapas=[...document.querySelectorAll('.etapa')];
+// Teatro do pensamento: presença, sem revelar o método.
+const estados=['pensando…','imaginando…','pesando as possibilidades…','quase lá…'];
+const estado=document.getElementById('estado');
 const maquina=document.getElementById('maquina');
 const cursor=document.getElementById('cursor');
 const resposta='Que tal um gato laranja de olhar confiante, chapéu de couro inclinado, ao pôr do sol de um deserto em aquarela? O contraste entre a elegância felina e a poeira do velho oeste é o charme. 🤠☀️';
-function dorme(ms){return new Promise(r=>setTimeout(r,ms))}
-async function roda(){
+const dorme=ms=>new Promise(r=>setTimeout(r,ms));
+(async function roda(){
   while(true){
-    etapas.forEach(e=>e.classList.remove('viva'));
     maquina.textContent='';cursor.style.display='inline-block';
-    await dorme(900);
-    for(const e of etapas){e.classList.add('viva');await dorme(e.dataset.e==='3'?1400:850)}
+    for(const e of estados){estado.textContent=e;await dorme(1600)}
+    estado.textContent='✨';
     for(const ch of resposta){maquina.textContent+=ch;await dorme(22)}
     cursor.style.display='none';
-    await dorme(6000);
+    await dorme(7000);
+    estado.textContent='pensando…';
   }
-}
-roda();
+})();
 </script>
 </body>
 </html>
